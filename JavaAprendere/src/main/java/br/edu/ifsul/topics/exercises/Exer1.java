@@ -22,9 +22,10 @@
  * THE SOFTWARE.
  */
 
-package br.ifsul.edu.topics.exercises;
+package br.edu.ifsul.topics.exercises;
 
 import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 /* 1) Defina um método que receba por parâmetros dois valores inteiros,
  * esse método deverá calcular a média dos valores recebidos e retornar um
@@ -33,25 +34,53 @@ import java.util.Scanner;
 public class Exer1 {
     
     // Retorna a média simples de dois números
-    public static float media(int n1, int n2) {
+    public static float mediaSimples(int n1, int n2) {
         float med;
         med = (n1 + n2) / 2f;
         return (med);
     }
     
     public static void main(String[] args) {
+        boolean useGraphical = false;
         float med;
         int n1, n2;
-        
-        // Scanner obj
-        Scanner scn = new Scanner(System.in);
-        
-        System.out.print("Digite o primeiro número: ");
-        n1 = scn.nextInt();
-        System.out.print("Digite o segundo número: ");
-        n2 = scn.nextInt();
-        med = media(n1, n2);
-        System.out.println("A média é " + med);
+
+        // Commandline arguments handler
+        for (int i = 0; i < args.length; i++) {
+            if (args[i] == "--graphical" || args[i] == "-g") {
+                useGraphical = true;
+            }
+        }
+
+        // Escolha de entrada de dados
+        if (useGraphical) {
+            // Mensagem de entrada
+            JOptionPane.showMessageDialog(null, "Calculo de média simples de DOIS números");
+
+            // Entrada do usuário de maneira gráfica
+            n1 = Integer.parseInt(JOptionPane.showInputDialog("Qual o valor o primeiro número? "));
+            n2 = Integer.parseInt(JOptionPane.showInputDialog("Qual o valor o segundo número? "));
+
+            // Cálculo da média simples
+            med = mediaSimples(n1, n2);
+            JOptionPane.showMessageDialog(null, "A média dos números " + n1 + " e " + n2 + " é " + med);
+        } else {
+            // Scanner obj
+            Scanner scn = new Scanner(System.in);
+
+            // Entrada do usuário
+            System.out.print("Digite o primeiro número: ");
+            n1 = scn.nextInt();
+            System.out.print("Digite o segundo número: ");
+            n2 = scn.nextInt();
+
+            // Calculo da média simples
+            med = mediaSimples(n1, n2);
+            System.out.println("A média é " + med);
+
+            // Exit
+            scn.close();
+        }
     }
     
 }
